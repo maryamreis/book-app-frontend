@@ -2,8 +2,13 @@ import React, {useState, useEffect} from "react";
 import {IBookList} from "../Types"
 import ShowBook from "./ShowBook";
 
+interface IListBooks {
+    searchTerm: string
+}
 
-function ListBooks(): JSX.Element {
+
+function ListBooks(props: IListBooks): JSX.Element {
+
     const [bookList, setBookList] = useState<IBookList[]>([]);
 
     const getBooks = async () => {
