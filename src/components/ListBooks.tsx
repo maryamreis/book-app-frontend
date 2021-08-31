@@ -30,9 +30,10 @@ function ListBooks(props: IListBooks): JSX.Element {
     }, []);
 
     return (
-        <div>
+        <div className="listBooks">
             {filterBooks(props.bookList, props.searchTerm).map((book) => (
                 <ShowBook 
+                key={book.id}
                 id={book.id}
                 name={book.name}
                 author={book.author}

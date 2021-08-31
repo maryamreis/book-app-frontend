@@ -26,8 +26,8 @@ function SearchBar(props: ISearchBar): JSX.Element {
                 {props.bookList.map((book) => (
                     <option key={book.id} value={book.name}>
                         {book.name} - {book.author}
-                  </option>
-                ))}
+                    </option>
+                ))};
             </select>
             
 

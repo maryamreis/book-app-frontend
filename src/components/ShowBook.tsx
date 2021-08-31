@@ -2,13 +2,13 @@ import { IBookList } from "../Types";
 
 function ShowBook(props: IBookList): JSX.Element {
     return(
-        <div>
-            <h1>
+        <div className = "showBook">
+            <h2>
                 {props.name}
-            </h1>
-            <h3>
+            </h2>
+            <h4>
                 {props.author}
-            </h3>
+            </h4>
             <h5>
                 {props.genre}
             </h5>

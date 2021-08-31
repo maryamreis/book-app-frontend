@@ -16,15 +16,30 @@ export interface IBookList {
 function App() {
   const [searchTerm, setSearchTerm] = useState("")
   const [bookList, setBookList] = useState<IBookList[]>([]);
+  const [currentPage, setCurrentPage] = useState('Home');
+  console.log(currentPage)
 
-  return (
-    <div className="App">
-      <Header />
-      <SearchBar setSearchTerm={setSearchTerm} bookList={bookList}/>
-      <ListBooks searchTerm={searchTerm} bookList={bookList} setBookList={setBookList}/>
-      <InputBook />
-    </div>
-  );
+  if(currentPage === 'Input') {
+    return (
+      <div className="App">
+        <Header currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+        <InputBook />
+      </div>
+    );
+  }
+
+  else {
+    return (
+      <div className="App">
+        <Header currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+        <SearchBar setSearchTerm={setSearchTerm} bookList={bookList}/>
+        <ListBooks searchTerm={searchTerm} bookList={bookList} setBookList={setBookList}/>
+      </div>
+    );
+
+  }
+
+  
 }
 
 export default App;
