@@ -5,7 +5,7 @@ function Header(): JSX.Element {
             <nav>
                 <ul>
                     <li>Search</li>
-                    <li>Favourites</li>
+                    <li>Input a book</li>
                 </ul>
             </nav>
             
