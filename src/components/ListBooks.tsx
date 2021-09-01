@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect} from "react";
 import {IBookList} from "../Types"
 import filterBooks from "../utils/filterBooks";
 import ShowBook from "./ShowBook";
@@ -11,7 +11,6 @@ interface IListBooks {
 
 
 function ListBooks(props: IListBooks): JSX.Element {
-
 
     const getBooks = async () => {
         try {
@@ -27,7 +26,7 @@ function ListBooks(props: IListBooks): JSX.Element {
 
     useEffect(() => {
         getBooks();
-    }, []);
+    });
 
     return (
         <div className="listBooks">
