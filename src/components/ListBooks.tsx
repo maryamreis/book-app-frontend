@@ -17,7 +17,10 @@ function ListBooks(props: IListBooks): JSX.Element {
     useEffect(() => {
         const getBooks = async () => {
             try {
-                const response = await fetch("http://localhost:4000/books");
+                const apiBaseURL = process.env.REACT_APP_API_BASE;
+                const response = await fetch(apiBaseURL + "/books")      
+
+                // const response = await fetch("http://localhost:4000/books");
                 const jsonData = await response.json();
     
                 setBookList(jsonData)
