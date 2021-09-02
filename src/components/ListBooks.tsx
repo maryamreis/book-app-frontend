@@ -11,22 +11,24 @@ interface IListBooks {
 
 
 function ListBooks(props: IListBooks): JSX.Element {
-
-    const getBooks = async () => {
-        try {
-            const response = await fetch("http://localhost:4000/books");
-            const jsonData = await response.json();
-
-            props.setBookList(jsonData)
-            
-        } catch (error) {
-            console.error(error.message)
-        }
-    };
+    const setBookList = props.setBookList
+    
 
     useEffect(() => {
+        const getBooks = async () => {
+            try {
+                const response = await fetch("http://localhost:4000/books");
+                const jsonData = await response.json();
+    
+                setBookList(jsonData)
+                
+            } catch (error) {
+                console.error(error.message)
+            }
+        };
+
         getBooks();
-    }, []);
+    }, [setBookList]);
 
     return (
         <div className="listBooks">
