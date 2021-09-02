@@ -26,7 +26,7 @@ function ListBooks(props: IListBooks): JSX.Element {
 
     useEffect(() => {
         getBooks();
-    });
+    }, []);
 
     return (
         <div className="listBooks">
