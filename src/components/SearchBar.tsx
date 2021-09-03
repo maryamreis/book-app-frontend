@@ -18,6 +18,7 @@ function SearchBar(props: ISearchBar): JSX.Element {
                 type="text" 
                 placeholder= "Search for a book..."
             />
+            
             <Spacer />
 
             <Select w="40%"
@@ -31,11 +32,9 @@ function SearchBar(props: ISearchBar): JSX.Element {
                     </option>
                 ))};
             </Select>
-            
-
         </Flex>
     )
-}
+};
 
 
 export default SearchBar

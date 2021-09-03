@@ -21,6 +21,7 @@ function Header(props: IHeader): JSX.Element {
                 <Box>
                     <Button mr="2" variant="ghost" onClick={() => props.setCurrentPage('Home')}>Home</Button>
                     <Button variant="ghost" onClick={() => props.setCurrentPage('Input')}>Input a book</Button>
+                    <Button variant="ghost" onClick={() => props.setCurrentPage('Favourites')}>Favourites</Button>
 
                 </Box>
             </Flex>
