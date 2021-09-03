@@ -12,12 +12,14 @@ interface IListBooks {
 
 function ListBooks(props: IListBooks): JSX.Element {
     const setBookList = props.setBookList
+    console.log(`${process.env.REACT_APP_API_BASE}`)
     
 
     useEffect(() => {
         const getBooks = async () => {
             try {
                 const apiBaseURL = process.env.REACT_APP_API_BASE;
+                
                 const response = await fetch(apiBaseURL + "/books")      
 
                 // const response = await fetch("http://localhost:4000/books");
