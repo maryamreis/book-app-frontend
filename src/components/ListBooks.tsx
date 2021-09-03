@@ -1,3 +1,4 @@
+import { SimpleGrid } from "@chakra-ui/react";
 import React, {useEffect} from "react";
 import {IBookList} from "../Types"
 import filterBooks from "../utils/filterBooks";
@@ -36,7 +37,7 @@ function ListBooks(props: IListBooks): JSX.Element {
     }, [setBookList]);
 
     return (
-        <div className="listBooks">
+        <SimpleGrid minChildWidth="20%" spacing="10" marginX="5">
             {filterBooks(props.bookList, props.searchTerm).map((book) => (
                 <ShowBook 
                 key={book.id}
@@ -46,7 +47,7 @@ function ListBooks(props: IListBooks): JSX.Element {
                 genre={book.genre}/>
             ))}
 
-        </div>
+        </SimpleGrid>
 
     )
 

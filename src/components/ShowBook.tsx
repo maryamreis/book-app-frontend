@@ -1,18 +1,19 @@
+import { Box, Heading, Text } from "@chakra-ui/react";
 import { IBookList } from "../Types";
 
 function ShowBook(props: IBookList): JSX.Element {
     return(
-        <div className = "showBook">
-            <h2>
+        <Box bg="cyan.50" borderWidth="2px" borderColor="cyan.500">
+            <Heading size="md">
                 {props.name}
-            </h2>
-            <h4>
+            </Heading>
+            <Text>
                 {props.author}
-            </h4>
-            <h5>
+            </Text>
+            <Text fontSize="xs">
                 {props.genre}
-            </h5>
-        </div>
+            </Text>
+        </Box>
     )
 };
 
