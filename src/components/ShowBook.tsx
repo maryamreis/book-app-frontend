@@ -2,6 +2,21 @@ import { Box, Button, Heading, Spacer, Stack, Text } from "@chakra-ui/react";
 import { IBookList } from "../Types";
 
 function ShowBook(props: IBookList): JSX.Element {
+
+    const deleteBook = async() => {
+
+        try {
+            const apiBaseURL = process.env.REACT_APP_API_BASE;
+            await fetch(apiBaseURL + `/books/${props.id}`, {
+                method: "DELETE",
+                headers: {"Content-Type": "application/json"}
+            });
+        
+        } catch (error) {
+            console.error(error.message)            
+        }
+    }
+
     return(
         <Box bg="cyan.50" borderWidth="2px" borderColor="cyan.500" boxShadow="lg" rounded="md">
             <Heading size="md" mt="20px" ml="10px" mr="10px">
@@ -44,7 +59,9 @@ function ShowBook(props: IBookList): JSX.Element {
                     }}
                     _focus={{
                     bg: 'cyan.500',
-                    }}>
+                    }}
+                    onClick={deleteBook}
+                    >
                     delete
                 </Button>
             </Stack>
