@@ -4,6 +4,7 @@ import ListBooks from './components/ListBooks';
 import SearchBar from './components/SearchBar';
 import { useState } from 'react';
 import InputBook from './components/InputBook';
+import Favourites from './components/Favourites';
 
 
 export interface IBookList {
@@ -18,11 +19,20 @@ function App() {
   const [bookList, setBookList] = useState<IBookList[]>([]);
   const [currentPage, setCurrentPage] = useState('Home');
 
-  if(currentPage === 'Input') {
+  if(currentPage === "Input") {
     return (
       <div className="App">
         <Header currentPage={currentPage} setCurrentPage={setCurrentPage}/>
         <InputBook />
+      </div>
+    );
+  }
+
+  else if (currentPage === "Favourites") {
+    return (
+      <div className="App">
+        <Header currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+        <Favourites />
       </div>
     );
   }

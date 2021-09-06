@@ -13,9 +13,7 @@ interface IListBooks {
 
 function ListBooks(props: IListBooks): JSX.Element {
     const setBookList = props.setBookList
-    console.log(`${process.env.REACT_APP_API_BASE}`)
     
-
     useEffect(() => {
         const getBooks = async () => {
             try {
