@@ -68,6 +68,7 @@ function ListFavourites(): JSX.Element{
             
             <Select w="40%"
                 my="32px"
+                ml="32px"
                 onChange={(event) => {
                     setSelectedUserID(event.target.value);
                 }}
@@ -80,7 +81,7 @@ function ListFavourites(): JSX.Element{
             </Select>
 
 
-            <SimpleGrid minChildWidth="20%" spacing="10" marginX="5">
+            <SimpleGrid minChildWidth="20%" spacing="10" marginX="5" ml="32px" mr="32px">
                 {/* {filterBooks(props.bookList, props.searchTerm).map((book) => ( */}
                 {favouriteList.map((book) => (
                     <ShowBook 

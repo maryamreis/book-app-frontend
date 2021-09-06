@@ -36,7 +36,7 @@ function ListBooks(props: IListBooks): JSX.Element {
 
     return (
         <SimpleGrid minChildWidth="20%" spacing="10" marginX="5">
-            {filterBooks(props.bookList, props.searchTerm).map((book) => (
+            {filterBooks(props.bookList, props.searchTerm).sort((a, b) => a.name.localeCompare(b.name)).map((book) => (
                 <ShowBook 
                 key={book.id}
                 id={book.id}

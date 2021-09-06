@@ -15,7 +15,25 @@ function ShowBook(props: IBookList): JSX.Element {
         } catch (error) {
             console.error(error.message)            
         }
-    }
+    };
+
+    // const addBooktoFavourites = async() => {
+    //     const body = {userid, bookid}
+    //     try {
+    //         const apiBaseURL = process.env.REACT_APP_API_BASE;
+    //         await fetch(apiBaseURL + `/favourites`, {
+    //             method: "POST",
+    //             headers: {"Content-Type": "application/json"},
+    //             body: JSON.stringify(body)
+    //         });
+        
+    //     } catch (error) {
+    //         console.error(error.message)            
+    //     }
+    // };
+
+
+
 
     return(
         <Box bg="cyan.50" borderWidth="2px" borderColor="cyan.500" boxShadow="lg" rounded="md">
