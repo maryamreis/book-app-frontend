@@ -21,7 +21,6 @@ function ListBooks(props: IListBooks): JSX.Element {
                 
                 const response = await fetch(apiBaseURL + "/books")      
 
-                // const response = await fetch("http://localhost:4000/books");
                 const jsonData = await response.json();
     
                 setBookList(jsonData)

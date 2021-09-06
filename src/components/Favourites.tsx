@@ -9,11 +9,17 @@ export interface IUserList {
     lastname: string
 };
 
+export interface IUserID {
+    selectedUserID: string,
+    setSelectedUserID: React.Dispatch<React.SetStateAction<string>>
 
-function ListFavourites(): JSX.Element{
+}
+
+
+function ListFavourites(props:IUserID): JSX.Element{
     const [favouriteList, setFavouriteList] = useState<IBookList[]>([]);
     const [userList, setUserList] = useState<IUserList[]>([]);
-    const [selectedUserID, setSelectedUserID] = useState("")
+
     console.log(userList)
 
     
@@ -46,7 +52,7 @@ function ListFavourites(): JSX.Element{
             try {
 
                 const apiBaseURL = process.env.REACT_APP_API_BASE;
-                const response = await fetch(apiBaseURL + `/favouriteBooks/${selectedUserID}`)      
+                const response = await fetch(apiBaseURL + `/favouriteBooks/${props.selectedUserID}`)      
                 const jsonData = await response.json();
                 console.log(jsonData)
                 setFavouriteList(jsonData)
@@ -59,7 +65,7 @@ function ListFavourites(): JSX.Element{
 
         getFavourites();
 
-    }, [setFavouriteList, selectedUserID])
+    }, [setFavouriteList, props.selectedUserID])
     
 
     
@@ -70,7 +76,7 @@ function ListFavourites(): JSX.Element{
                 my="32px"
                 ml="32px"
                 onChange={(event) => {
-                    setSelectedUserID(event.target.value);
+                    props.setSelectedUserID(event.target.value);
                 }}
             >
                 {userList.map((user) => (

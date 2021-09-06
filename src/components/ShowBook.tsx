@@ -1,4 +1,4 @@
-import { Box, Button, Heading, Spacer, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Heading, Stack, Text } from "@chakra-ui/react";
 import { IBookList } from "../Types";
 
 function ShowBook(props: IBookList): JSX.Element {
@@ -36,7 +36,7 @@ function ShowBook(props: IBookList): JSX.Element {
 
 
     return(
-        <Box bg="cyan.50" borderWidth="2px" borderColor="cyan.500" boxShadow="lg" rounded="md">
+        <Box bg="cyan.50" borderWidth="2px" borderColor="cyan.500" boxShadow="lg" rounded="md" maxWidth="317px">
             <Heading size="md" mt="20px" ml="10px" mr="10px">
                 {props.name}
             </Heading>

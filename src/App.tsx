@@ -21,6 +21,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("")
   const [bookList, setBookList] = useState<IBookList[]>([]);
   const [currentPage, setCurrentPage] = useState('Home');
+  const [selectedUserID, setSelectedUserID] = useState("")
 
   if(currentPage === "Input") {
     return (
@@ -35,7 +36,7 @@ function App() {
     return (
       <div className="App">
         <Header currentPage={currentPage} setCurrentPage={setCurrentPage}/>
-        <Favourites />
+        <Favourites selectedUserID={selectedUserID} setSelectedUserID={setSelectedUserID}/>
       </div>
     );
   }
@@ -45,7 +46,13 @@ function App() {
       <div className="App">
         <Header currentPage={currentPage} setCurrentPage={setCurrentPage}/>
         <SearchBar setSearchTerm={setSearchTerm} bookList={bookList}/>
-        <ListBooks searchTerm={searchTerm} bookList={bookList} setBookList={setBookList}/>
+        <ListBooks 
+          searchTerm={searchTerm} 
+          bookList={bookList} 
+          setBookList={setBookList} 
+          // selectedUserID={selectedUserID} 
+          // setSelectedUserID={setSelectedUserID}
+      />
       </div>
     );
 
