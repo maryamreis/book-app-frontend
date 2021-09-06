@@ -1,7 +1,15 @@
 import { Box, Button, Heading, Stack, Text } from "@chakra-ui/react";
 import { IBookList } from "../Types";
 
-function ShowBook(props: IBookList): JSX.Element {
+export interface IShowBook {
+    id: number,
+    name: string,
+    author: string,
+    genre: string
+    selectedUserID: string
+};
+
+function ShowBook(props: IShowBook): JSX.Element {
 
     const deleteBook = async() => {
 
@@ -17,20 +25,23 @@ function ShowBook(props: IBookList): JSX.Element {
         }
     };
 
-    // const addBooktoFavourites = async() => {
-    //     const body = {userid, bookid}
-    //     try {
-    //         const apiBaseURL = process.env.REACT_APP_API_BASE;
-    //         await fetch(apiBaseURL + `/favourites`, {
-    //             method: "POST",
-    //             headers: {"Content-Type": "application/json"},
-    //             body: JSON.stringify(body)
-    //         });
+    const addToFavourites = async() => {
+        console.log(props.selectedUserID, props.id);
+        const userid = props.selectedUserID;
+        const bookid = props.id
+        const body = {userid, bookid}
+        try {
+            const apiBaseURL = process.env.REACT_APP_API_BASE;
+            await fetch(apiBaseURL + `/favourites`, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(body)
+            });
         
-    //     } catch (error) {
-    //         console.error(error.message)            
-    //     }
-    // };
+        } catch (error) {
+            console.error(error.message)            
+        }
+    };
 
 
 
@@ -61,7 +72,9 @@ function ShowBook(props: IBookList): JSX.Element {
                     }}
                     _focus={{
                     bg: 'cyan.500',
-                    }}>
+                    }}
+                    onClick={addToFavourites}
+                    >
                     favourite
                 </Button>
                 <Button

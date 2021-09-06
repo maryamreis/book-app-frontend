@@ -8,6 +8,7 @@ interface IListBooks {
     searchTerm: string
     bookList: IBookList[]
     setBookList: React.Dispatch<React.SetStateAction<IBookList[]>>
+    selectedUserID: string
 }
 
 
@@ -41,7 +42,8 @@ function ListBooks(props: IListBooks): JSX.Element {
                 id={book.id}
                 name={book.name}
                 author={book.author}
-                genre={book.genre}/>
+                genre={book.genre}
+                selectedUserID={props.selectedUserID}/>
             ))}
 
         </SimpleGrid>

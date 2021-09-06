@@ -20,7 +20,7 @@ function ListFavourites(props:IUserID): JSX.Element{
     const [favouriteList, setFavouriteList] = useState<IBookList[]>([]);
     const [userList, setUserList] = useState<IUserList[]>([]);
 
-    console.log(userList)
+    console.log({userList})
 
     
 
@@ -95,7 +95,8 @@ function ListFavourites(props:IUserID): JSX.Element{
                     id={book.id}
                     name={book.name}
                     author={book.author}
-                    genre={book.genre}/>
+                    genre={book.genre}
+                    selectedUserID={props.selectedUserID}/>
                 ))}
             </SimpleGrid>
 

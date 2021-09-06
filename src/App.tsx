@@ -11,17 +11,16 @@ export interface IBookList {
   id: number,
   name: string,
   author: string,
-  genre: string
+  genre: string,
 };
-
-
 
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("")
   const [bookList, setBookList] = useState<IBookList[]>([]);
   const [currentPage, setCurrentPage] = useState('Home');
-  const [selectedUserID, setSelectedUserID] = useState("")
+  const [selectedUserID, setSelectedUserID] = useState("1");
+  console.log({selectedUserID})
 
   if(currentPage === "Input") {
     return (
@@ -50,8 +49,7 @@ function App() {
           searchTerm={searchTerm} 
           bookList={bookList} 
           setBookList={setBookList} 
-          // selectedUserID={selectedUserID} 
-          // setSelectedUserID={setSelectedUserID}
+          selectedUserID={selectedUserID}
       />
       </div>
     );
