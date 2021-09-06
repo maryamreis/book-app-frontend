@@ -14,13 +14,13 @@ function Header(props: IHeader): JSX.Element {
         <Box my="32px" mx="10">
             <Flex >
                 <Box>
-                    <Heading color="cyan.500">Book Search App</Heading>
+                    <Heading color="cyan.500">Book Buddy</Heading>
                     
                 </Box>
                 <Spacer/>
                 <Box>
-                    <Button mr="2" variant="ghost" onClick={() => props.setCurrentPage('Home')}>Home</Button>
-                    <Button variant="ghost" onClick={() => props.setCurrentPage('Input')}>Input a book</Button>
+                    <Button mr="2" variant="ghost" onClick={() => props.setCurrentPage('Home')}>Search</Button>
+                    <Button variant="ghost" onClick={() => props.setCurrentPage('Input')}>Input</Button>
                     <Button variant="ghost" onClick={() => props.setCurrentPage('Favourites')}>Favourites</Button>
 
                 </Box>
