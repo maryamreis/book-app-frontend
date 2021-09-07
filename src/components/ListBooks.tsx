@@ -1,3 +1,4 @@
+import { SimpleGrid } from "@chakra-ui/react";
 import React, {useEffect} from "react";
 import {IBookList} from "../Types"
 import filterBooks from "../utils/filterBooks";
@@ -7,14 +8,13 @@ interface IListBooks {
     searchTerm: string
     bookList: IBookList[]
     setBookList: React.Dispatch<React.SetStateAction<IBookList[]>>
+    selectedUserID: string
 }
 
 
 function ListBooks(props: IListBooks): JSX.Element {
     const setBookList = props.setBookList
-    console.log(`${process.env.REACT_APP_API_BASE}`)
     
-
     useEffect(() => {
         const getBooks = async () => {
             try {
@@ -22,7 +22,6 @@ function ListBooks(props: IListBooks): JSX.Element {
                 
                 const response = await fetch(apiBaseURL + "/books")      
 
-                // const response = await fetch("http://localhost:4000/books");
                 const jsonData = await response.json();
     
                 setBookList(jsonData)
@@ -36,17 +35,18 @@ function ListBooks(props: IListBooks): JSX.Element {
     }, [setBookList]);
 
     return (
-        <div className="listBooks">
-            {filterBooks(props.bookList, props.searchTerm).map((book) => (
+        <SimpleGrid minChildWidth="20%" spacing="10" marginX="5">
+            {filterBooks(props.bookList, props.searchTerm).sort((a, b) => a.name.localeCompare(b.name)).map((book) => (
                 <ShowBook 
                 key={book.id}
                 id={book.id}
                 name={book.name}
                 author={book.author}
-                genre={book.genre}/>
+                genre={book.genre}
+                selectedUserID={props.selectedUserID}/>
             ))}
 
-        </div>
+        </SimpleGrid>
 
     )
 

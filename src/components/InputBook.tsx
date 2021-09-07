@@ -10,8 +10,11 @@ function InputBook(): JSX.Element {
         //event.preventDefault();
         try {
             const body = {name, author, genre};
-            console.log(body)
-            const response = await fetch ("http://localhost:4000/books", {
+            console.log(body);
+
+            const apiBaseURL = process.env.REACT_APP_API_BASE;
+                
+            const response = await fetch(apiBaseURL + "/books", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(body)

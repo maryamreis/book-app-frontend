@@ -1,3 +1,4 @@
+import { Box, Button, Divider, Flex, Heading, Spacer } from "@chakra-ui/react"
 
 interface IHeader{
     currentPage: string,
@@ -10,16 +11,35 @@ function Header(props: IHeader): JSX.Element {
     //react-router try after
 
     return (
-        <nav className = "header">
-            <h1>Book Search App</h1>
-            <nav>
-                <ul>
-                    <li onClick={() => props.setCurrentPage('Home')}>Home</li>
-                    <li onClick={() => props.setCurrentPage('Input')}>Input a book</li>
-                </ul>
-            </nav>
+        <Box my="32px" mx="10">
+            <Flex >
+                <Box>
+                    <Heading color="cyan.500">Book Buddy</Heading>
+                    
+                </Box>
+                <Spacer/>
+                <Box>
+                    <Button mr="2" variant="ghost" onClick={() => props.setCurrentPage('Home')}>Search</Button>
+                    <Button variant="ghost" onClick={() => props.setCurrentPage('Input')}>Input</Button>
+                    <Button variant="ghost" onClick={() => props.setCurrentPage('Favourites')}>Favourites</Button>
+
+                </Box>
+            </Flex>
+            <Divider orientation="horizontal" mt="10px"/>
+
+        </Box>
+        
+
+        // <nav className = "header">
+        //     <Heading>Book Search App</Heading>
+        //     <nav>
+        //         <ul>
+        //             <li onClick={() => props.setCurrentPage('Home')}>Home</li>
+        //             <li onClick={() => props.setCurrentPage('Input')}>Input a book</li>
+        //         </ul>
+        //     </nav>
             
-        </nav>
+        // </nav>
 
 
 

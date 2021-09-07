@@ -1,3 +1,4 @@
+import { Flex, Input, Select, Spacer } from "@chakra-ui/react";
 import React from "react";
 import { IBookList } from "../App";
 
@@ -10,15 +11,17 @@ function SearchBar(props: ISearchBar): JSX.Element {
     //useState
     
     return (
-        <div>
-            <input 
+        <Flex mb="32px" mx="5">
+            <Input w="40%"
                 onChange={(event) => props.setSearchTerm(event.target.value)} 
                 className="searchBar" 
                 type="text" 
                 placeholder= "Search for a book..."
             />
+            
+            <Spacer />
 
-            <select
+            <Select w="40%"
                 onChange={(event) => {
                     props.setSearchTerm(event.target.value);
                 }}
@@ -28,12 +31,10 @@ function SearchBar(props: ISearchBar): JSX.Element {
                         {book.name} - {book.author}
                     </option>
                 ))};
-            </select>
-            
-
-        </div>
+            </Select>
+        </Flex>
     )
-}
+};
 
 
 export default SearchBar
