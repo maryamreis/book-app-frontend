@@ -5,17 +5,17 @@ export interface IShowBook {
     name: string,
     author: string,
     genre: string
-    selectedUserID: string
+    selectedUserID: number
 };
 
 export interface IBookObject {
-    userid: string,
+    userid: number,
     bookid: number,
     favouriteid: number
 };
 
 export interface IBookObjectWithoutFavourite {
-    userid: string,
+    userid: number,
     bookid: number
 };
 
@@ -100,7 +100,7 @@ function ShowBook(props: IShowBook): JSX.Element {
     return(
         <Box bg="cyan.50" borderWidth="2px" borderColor="cyan.500" boxShadow="lg" rounded="md" maxWidth="317px">
             <Heading size="md" mt="20px" ml="10px" mr="10px">
-                {props.name} ID:{props.id}!
+                {props.name}
             </Heading>
             <Text mt="10px">
                 {props.author}

@@ -10,8 +10,8 @@ export interface IUserList {
 };
 
 export interface IUserID {
-    selectedUserID: string,
-    setSelectedUserID: React.Dispatch<React.SetStateAction<string>>
+    selectedUserID: number,
+    setSelectedUserID: React.Dispatch<React.SetStateAction<number>>
 };
 
 
@@ -73,7 +73,7 @@ function ListFavourites(props:IUserID): JSX.Element{
                 my="32px"
                 ml="32px"
                 onChange={(event) => {
-                    props.setSelectedUserID(event.target.value);
+                    props.setSelectedUserID(parseInt(event.target.value));
                 }}
             >
                 {userList.map((user) => (
