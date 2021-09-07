@@ -5,17 +5,17 @@ export interface IShowBook {
     name: string,
     author: string,
     genre: string
-    selectedUserID: string
+    selectedUserID: number
 };
 
 export interface IBookObject {
-    userid: string,
+    userid: number,
     bookid: number,
     favouriteid: number
 };
 
 export interface IBookObjectWithoutFavourite {
-    userid: string,
+    userid: number,
     bookid: number
 };
 
@@ -23,6 +23,7 @@ export interface IBookObjectWithoutFavourite {
 function ShowBook(props: IShowBook): JSX.Element {
     
     function containsBookInFavourites(book: IBookObjectWithoutFavourite, list: IBookObject[]) {
+        console.log("containsBookInFavourites function:", "book:", book, "list:",list)
         for (let i = 0; i < list.length; i++) {
             if (list[i].bookid === book.bookid && list[i].userid === book.userid) {
                 return true;
@@ -56,9 +57,10 @@ function ShowBook(props: IShowBook): JSX.Element {
         const favouriteJSONList = await response.json();
         console.log({favouriteJSONList})
 
-        console.log(containsBookInFavourites(body, favouriteJSONList))
+        console.log("containsBookinfavourites returns:",containsBookInFavourites(body, favouriteJSONList))
         
         if (containsBookInFavourites(body, favouriteJSONList) === true){
+            console.log("going to do a http delete request to /favourties to delete the book from favourites", body)
             try {
                 const apiBaseURL = process.env.REACT_APP_API_BASE;
                 await fetch(apiBaseURL + `/favourites`, {
@@ -66,6 +68,7 @@ function ShowBook(props: IShowBook): JSX.Element {
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(body)
                 });
+                
             
 
             
@@ -75,13 +78,16 @@ function ShowBook(props: IShowBook): JSX.Element {
         }
 
         else {
+            console.log("going to do a http post to /favourites request of:", body )
             try {
                 const apiBaseURL = process.env.REACT_APP_API_BASE;
+                console.log("posting to favourites", apiBaseURL, body)
                 await fetch(apiBaseURL + `/favourites`, {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(body)
                 });
+                
             
             } catch (error) {
                 console.error(error.message);            

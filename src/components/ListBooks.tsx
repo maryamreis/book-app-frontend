@@ -8,7 +8,7 @@ interface IListBooks {
     searchTerm: string
     bookList: IBookList[]
     setBookList: React.Dispatch<React.SetStateAction<IBookList[]>>
-    selectedUserID: string
+    selectedUserID: number
 }
 
 

@@ -10,19 +10,16 @@ export interface IUserList {
 };
 
 export interface IUserID {
-    selectedUserID: string,
-    setSelectedUserID: React.Dispatch<React.SetStateAction<string>>
-
-}
+    selectedUserID: number,
+    setSelectedUserID: React.Dispatch<React.SetStateAction<number>>
+};
 
 
 function ListFavourites(props:IUserID): JSX.Element{
     const [favouriteList, setFavouriteList] = useState<IBookList[]>([]);
     const [userList, setUserList] = useState<IUserList[]>([]);
 
-    console.log({userList})
-
-    
+    console.log({userList});
 
     useEffect(() => {
         const getUserList = async () => {
@@ -43,7 +40,7 @@ function ListFavourites(props:IUserID): JSX.Element{
 
         getUserList();
 
-    }, [setUserList])
+    }, [setUserList]);
 
 
 
@@ -54,7 +51,7 @@ function ListFavourites(props:IUserID): JSX.Element{
                 const apiBaseURL = process.env.REACT_APP_API_BASE;
                 const response = await fetch(apiBaseURL + `/favouriteBooks/${props.selectedUserID}`)      
                 const jsonData = await response.json();
-                console.log(jsonData)
+                console.log("retrieved favourite books for specific user", props.selectedUserID, jsonData, "in get favourites of favourites component")
                 setFavouriteList(jsonData)
                 
             } catch (error) {
@@ -65,7 +62,7 @@ function ListFavourites(props:IUserID): JSX.Element{
 
         getFavourites();
 
-    }, [setFavouriteList, props.selectedUserID])
+    }, [setFavouriteList, props.selectedUserID]);
     
 
     
@@ -76,7 +73,7 @@ function ListFavourites(props:IUserID): JSX.Element{
                 my="32px"
                 ml="32px"
                 onChange={(event) => {
-                    props.setSelectedUserID(event.target.value);
+                    props.setSelectedUserID(parseInt(event.target.value));
                 }}
             >
                 {userList.map((user) => (

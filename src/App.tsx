@@ -19,7 +19,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("")
   const [bookList, setBookList] = useState<IBookList[]>([]);
   const [currentPage, setCurrentPage] = useState('Home');
-  const [selectedUserID, setSelectedUserID] = useState("1");
+  const [selectedUserID, setSelectedUserID] = useState(1);
   console.log({selectedUserID})
 
   if(currentPage === "Input") {
