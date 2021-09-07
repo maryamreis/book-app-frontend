@@ -1,5 +1,4 @@
 import { Box, Button, Heading, Stack, Text } from "@chakra-ui/react";
-import { IBookList } from "../Types";
 
 export interface IShowBook {
     id: number,
@@ -9,7 +8,28 @@ export interface IShowBook {
     selectedUserID: string
 };
 
+export interface IBookObject {
+    userid: string,
+    bookid: number,
+    favouriteid: number
+};
+
+export interface IBookObjectWithoutFavourite {
+    userid: string,
+    bookid: number
+};
+
+
 function ShowBook(props: IShowBook): JSX.Element {
+    
+    function containsBookInFavourites(book: IBookObjectWithoutFavourite, list: IBookObject[]) {
+        for (let i = 0; i < list.length; i++) {
+            if (list[i].bookid === book.bookid && list[i].userid === book.userid) {
+                return true;
+            }
+        }
+        return false;
+    };
 
     const deleteBook = async() => {
 
@@ -28,22 +48,47 @@ function ShowBook(props: IShowBook): JSX.Element {
     const addToFavourites = async() => {
         console.log(props.selectedUserID, props.id);
         const userid = props.selectedUserID;
-        const bookid = props.id
-        const body = {userid, bookid}
-        try {
-            const apiBaseURL = process.env.REACT_APP_API_BASE;
-            await fetch(apiBaseURL + `/favourites`, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(body)
-            });
+        const bookid = props.id;
+        const body = {userid, bookid};
+
+        const apiBaseURL = process.env.REACT_APP_API_BASE;
+        const response = await fetch(apiBaseURL + `/favourites`);
+        const favouriteJSONList = await response.json();
+        console.log({favouriteJSONList})
+
+        console.log(containsBookInFavourites(body, favouriteJSONList))
         
-        } catch (error) {
-            console.error(error.message)            
+        if (containsBookInFavourites(body, favouriteJSONList) === true){
+            try {
+                const apiBaseURL = process.env.REACT_APP_API_BASE;
+                await fetch(apiBaseURL + `/favourites`, {
+                    method: "DELETE",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(body)
+                });
+            
+
+            
+            } catch (error) {
+                console.error(error.message);            
+            }
         }
+
+        else {
+            try {
+                const apiBaseURL = process.env.REACT_APP_API_BASE;
+                await fetch(apiBaseURL + `/favourites`, {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(body)
+                });
+            
+            } catch (error) {
+                console.error(error.message);            
+            }
+        }
+        
     };
-
-
 
 
     return(
