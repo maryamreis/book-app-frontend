@@ -72,6 +72,7 @@ function ListFavourites(props:IUserID): JSX.Element{
             <Select w="40%"
                 my="32px"
                 ml="32px"
+                placeholder="Select user..."
                 onChange={(event) => {
                     props.setSelectedUserID(parseInt(event.target.value));
                 }}

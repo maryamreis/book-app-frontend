@@ -61,6 +61,7 @@ function ShowBook(props: IShowBook): JSX.Element {
         
         if (containsBookInFavourites(body, favouriteJSONList) === true){
             console.log("going to do a http delete request to /favourties to delete the book from favourites", body)
+            
             try {
                 const apiBaseURL = process.env.REACT_APP_API_BASE;
                 await fetch(apiBaseURL + `/favourites`, {
@@ -69,8 +70,6 @@ function ShowBook(props: IShowBook): JSX.Element {
                     body: JSON.stringify(body)
                 });
                 
-            
-
             
             } catch (error) {
                 console.error(error.message);            
@@ -95,7 +94,6 @@ function ShowBook(props: IShowBook): JSX.Element {
         }
         
     };
-
 
     return(
         <Box bg="cyan.50" borderWidth="2px" borderColor="cyan.500" boxShadow="lg" rounded="md" maxWidth="317px">
