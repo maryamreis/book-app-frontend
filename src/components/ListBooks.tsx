@@ -12,6 +12,7 @@ interface IListBooks {
     selectedUserID: number,
     favouriteList: IFavouriteList[],
     setFavouriteList: React.Dispatch<React.SetStateAction<IFavouriteList[]>>,
+    getFavourites: () => Promise<void>
 };
 
 
@@ -37,7 +38,9 @@ function ListBooks(props: IListBooks): JSX.Element {
         };
 
         getBooks();
-    }, [setBookList]);
+    }, [setBookList, props.setFavouriteList]);
+
+
 
     return (
         <SimpleGrid minChildWidth="20%" spacing="10" marginX="5">
@@ -51,6 +54,7 @@ function ListBooks(props: IListBooks): JSX.Element {
                 selectedUserID={props.selectedUserID}
                 favouriteList={props.favouriteList} 
                 setFavouriteList={props.setFavouriteList}
+                getFavourites={props.getFavourites}
                 />
             ))}
 

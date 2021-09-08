@@ -26,6 +26,7 @@ export interface IFavouriteList {
 
 
 function App() {
+  console.log("app component is being rendered")
   const [searchTerm, setSearchTerm] = useState("")
   const [bookList, setBookList] = useState<IBookList[]>([]);
   const [currentPage, setCurrentPage] = useState('Home');
@@ -34,24 +35,24 @@ function App() {
   console.log({selectedUserID})
   console.log({favouriteList})
 
+  const getFavourites = async () => {
+    try {
+
+        const apiBaseURL = process.env.REACT_APP_API_BASE;
+        const response = await fetch(apiBaseURL + `/favouriteBooks/${selectedUserID}`)      
+        const jsonData = await response.json();
+        console.log("retrieved favourite books for specific user", selectedUserID, jsonData, "in get favourites of favourites component")
+        setFavouriteList(jsonData)
+        
+    } catch (error) {
+        console.error(error.message)
+        
+    }
+};
   
 
   useEffect(() => {
-    const getFavourites = async () => {
-        try {
 
-            const apiBaseURL = process.env.REACT_APP_API_BASE;
-            const response = await fetch(apiBaseURL + `/favouriteBooks/${selectedUserID}`)      
-            const jsonData = await response.json();
-            console.log("retrieved favourite books for specific user", selectedUserID, jsonData, "in get favourites of favourites component")
-            setFavouriteList(jsonData)
-            console.log("http get request from /favouriteBooks/:id fetched: ", {jsonData})
-            
-        } catch (error) {
-            console.error(error.message)
-            
-        }
-    };
 
     getFavourites();
 
@@ -76,6 +77,7 @@ function App() {
           setSelectedUserID={setSelectedUserID} 
           favouriteList={favouriteList} 
           setFavouriteList={setFavouriteList}
+          getFavourites={getFavourites}
           />
       </div>
     );
@@ -93,6 +95,7 @@ function App() {
           selectedUserID={selectedUserID}
           favouriteList={favouriteList} 
           setFavouriteList={setFavouriteList}
+          getFavourites={getFavourites}
       />
       </div>
     );

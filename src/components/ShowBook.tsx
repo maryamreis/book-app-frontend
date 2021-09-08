@@ -9,6 +9,7 @@ export interface IShowBook {
     selectedUserID: number,
     favouriteList: IFavouriteList[],
     setFavouriteList: React.Dispatch<React.SetStateAction<IFavouriteList[]>>,
+    getFavourites: () => Promise<void>
 
 };
 
@@ -25,16 +26,17 @@ export interface IBookObjectWithoutFavourite {
 
 
 function ShowBook(props: IShowBook): JSX.Element {
+    console.log("showBook component being rendered")
     
-    function containsBookInFavourites(book: IBookObjectWithoutFavourite, list: IBookObject[]) {
-        console.log("containsBookInFavourites function:", "book:", book, "list:",list)
-        for (let i = 0; i < list.length; i++) {
-            if (list[i].bookid === book.bookid && list[i].userid === book.userid) {
-                return true;
-            }
-        }
-        return false;
-    };
+    // function containsBookInFavourites(book: IBookObjectWithoutFavourite, list: IBookObject[]) {
+    //     console.log("containsBookInFavourites function:", "book:", book, "list:",list)
+    //     for (let i = 0; i < list.length; i++) {
+    //         if (list[i].bookid === book.bookid && list[i].userid === book.userid) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // };
 
     function containsBookInFavouritesOfFavouritesList(book: IBookObjectWithoutFavourite, list: IFavouriteList[]) {
         //console.log("containsBookInFavouritesOfFavouritesList function:", "book:", book, "list:",list)
@@ -67,14 +69,14 @@ function ShowBook(props: IShowBook): JSX.Element {
         const bookid = props.id;
         const body = {userid, bookid};
 
-        const apiBaseURL = process.env.REACT_APP_API_BASE;
-        const response = await fetch(apiBaseURL + `/favourites`);
-        const favouriteJSONList = await response.json();
-        console.log({favouriteJSONList});
+        // const apiBaseURL = process.env.REACT_APP_API_BASE;
+        // const response = await fetch(apiBaseURL + `/favourites`);
+        // const favouriteJSONList = await response.json();
+        // console.log({favouriteJSONList});
 
         //console.log("containsBookinfavourites returns:",containsBookInFavourites(body, favouriteJSONList))
         
-        if (containsBookInFavourites(body, favouriteJSONList) === true){
+        if (containsBookInFavouritesOfFavouritesList(body, props.favouriteList) === true){
             console.log("going to do a http delete request to /favourties to delete the book from favourites", body)
             
             try {
@@ -84,7 +86,9 @@ function ShowBook(props: IShowBook): JSX.Element {
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(body)
                 });
-                
+                props.getFavourites()
+            
+
             
             } catch (error) {
                 console.error(error.message);            
@@ -92,7 +96,7 @@ function ShowBook(props: IShowBook): JSX.Element {
         }
 
         else {
-            console.log("going to do a http post to /favourites request of:", body )
+            console.log("going to do a http post to /favourites of: ", body )
             try {
                 const apiBaseURL = process.env.REACT_APP_API_BASE;
                 console.log("posting to favourites", apiBaseURL, body)
@@ -101,13 +105,16 @@ function ShowBook(props: IShowBook): JSX.Element {
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(body)
                 });
-                
+                props.getFavourites();
             
             } catch (error) {
                 console.error(error.message);            
             }
         }
     };
+
+
+
 
 
     function checkIfInFavourites(){
@@ -157,12 +164,7 @@ function ShowBook(props: IShowBook): JSX.Element {
                     //bg={'cyan.400'}
                     bg={checkIfInFavourites()===true ? 'pink.500' : 'cyan.500'}
                     color={'white'}
-                    _hover={{
-                    bg: 'blue.500',
-                    }}
-                    _focus={{
-                    bg: 'cyan.500',
-                    }}
+                    
                     onClick={addToFavourites}
                     >
                     favourite

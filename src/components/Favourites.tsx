@@ -14,6 +14,7 @@ export interface IUserIDAndFavourites {
     setSelectedUserID: React.Dispatch<React.SetStateAction<number>>
     favouriteList: IFavouriteList[],
     setFavouriteList: React.Dispatch<React.SetStateAction<IFavouriteList[]>>,
+    getFavourites: () => Promise<void>
 };
 
 
@@ -21,7 +22,7 @@ function ListFavourites(props:IUserIDAndFavourites): JSX.Element{
     const [userList, setUserList] = useState<IUserList[]>([]);
     //const [selectedUserName, setSelectedUserName] = useState("")
 
-    console.log({userList});
+    console.log("list favourites is rendering userList:", {userList});
 
     useEffect(() => {
         const getUserList = async () => {
@@ -35,7 +36,7 @@ function ListFavourites(props:IUserIDAndFavourites): JSX.Element{
                 const jsonData = await response.json();
         
                 setUserList(jsonData)
-                console.log("http get request from /users fetched: ", {userList})
+                console.log("http get request from /users fetched: ", {jsonData})
     
             } catch (error) {
                 console.log(error.message) 
@@ -53,7 +54,6 @@ function ListFavourites(props:IUserIDAndFavourites): JSX.Element{
             <Select w="40%"
                 my="32px"
                 ml="32px"
-                //placeholder={selectedUserName}
                 onChange={(event) => {
                     props.setSelectedUserID(parseInt(event.target.value))
                 }}
@@ -67,7 +67,6 @@ function ListFavourites(props:IUserIDAndFavourites): JSX.Element{
 
 
             <SimpleGrid minChildWidth="20%" spacing="10" marginX="5" ml="32px" mr="32px">
-                {/* {filterBooks(props.bookList, props.searchTerm).map((book) => ( */}
                 {props.favouriteList.map((book) => (
                     <ShowBook 
                     key={book.id}
@@ -78,6 +77,7 @@ function ListFavourites(props:IUserIDAndFavourites): JSX.Element{
                     selectedUserID={props.selectedUserID}
                     favouriteList={props.favouriteList} 
                     setFavouriteList={props.setFavouriteList}
+                    getFavourites={props.getFavourites}
                     />
                 ))}
             </SimpleGrid>
