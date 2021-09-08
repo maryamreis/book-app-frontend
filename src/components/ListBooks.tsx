@@ -11,8 +11,8 @@ interface IListBooks {
     setBookList: React.Dispatch<React.SetStateAction<IBookList[]>>
     selectedUserID: number,
     favouriteList: IFavouriteList[],
-    setFavouriteList: React.Dispatch<React.SetStateAction<IFavouriteList[]>>
-}
+    setFavouriteList: React.Dispatch<React.SetStateAction<IFavouriteList[]>>,
+};
 
 
 function ListBooks(props: IListBooks): JSX.Element {

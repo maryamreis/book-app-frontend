@@ -8,7 +8,8 @@ export interface IShowBook {
     genre: string
     selectedUserID: number,
     favouriteList: IFavouriteList[],
-    setFavouriteList: React.Dispatch<React.SetStateAction<IFavouriteList[]>>
+    setFavouriteList: React.Dispatch<React.SetStateAction<IFavouriteList[]>>,
+
 };
 
 export interface IBookObject {
@@ -24,8 +25,6 @@ export interface IBookObjectWithoutFavourite {
 
 
 function ShowBook(props: IShowBook): JSX.Element {
-
-    //useeffect to fetch and have usestate of fav list
     
     function containsBookInFavourites(book: IBookObjectWithoutFavourite, list: IBookObject[]) {
         console.log("containsBookInFavourites function:", "book:", book, "list:",list)
@@ -38,7 +37,7 @@ function ShowBook(props: IShowBook): JSX.Element {
     };
 
     function containsBookInFavouritesOfFavouritesList(book: IBookObjectWithoutFavourite, list: IFavouriteList[]) {
-        console.log("containsBookInFavouritesOfFavouritesList function:", "book:", book, "list:",list)
+        //console.log("containsBookInFavouritesOfFavouritesList function:", "book:", book, "list:",list)
         for (let i = 0; i < list.length; i++) {
             if (list[i].id === book.bookid && list[i].userid === book.userid) {
                 return true;
@@ -61,6 +60,7 @@ function ShowBook(props: IShowBook): JSX.Element {
         }
     };
 
+    
     const addToFavourites = async() => {
         console.log(props.selectedUserID, props.id);
         const userid = props.selectedUserID;
@@ -70,9 +70,9 @@ function ShowBook(props: IShowBook): JSX.Element {
         const apiBaseURL = process.env.REACT_APP_API_BASE;
         const response = await fetch(apiBaseURL + `/favourites`);
         const favouriteJSONList = await response.json();
-        console.log({favouriteJSONList})
+        console.log({favouriteJSONList});
 
-        console.log("containsBookinfavourites returns:",containsBookInFavourites(body, favouriteJSONList))
+        //console.log("containsBookinfavourites returns:",containsBookInFavourites(body, favouriteJSONList))
         
         if (containsBookInFavourites(body, favouriteJSONList) === true){
             console.log("going to do a http delete request to /favourties to delete the book from favourites", body)
@@ -111,7 +111,7 @@ function ShowBook(props: IShowBook): JSX.Element {
 
 
     function checkIfInFavourites(){
-        console.log(props.selectedUserID, props.id);
+        //console.log(props.selectedUserID, props.id);
         const userid = props.selectedUserID;
         const bookid = props.id;
         const body = {userid, bookid};
@@ -130,7 +130,7 @@ function ShowBook(props: IShowBook): JSX.Element {
             return false
         }
 
-    }
+    };
     //const checkIfInFavourites = async() => {
         
     //};

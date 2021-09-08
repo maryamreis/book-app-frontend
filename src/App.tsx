@@ -2,7 +2,7 @@ import './App.css';
 import Header from './components/Header';
 import ListBooks from './components/ListBooks';
 import SearchBar from './components/SearchBar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import InputBook from './components/InputBook';
 import Favourites from './components/Favourites';
 
@@ -20,7 +20,9 @@ export interface IFavouriteList {
   author: string,
   genre: string,
   userid: number
-}
+};
+
+
 
 
 function App() {
@@ -31,6 +33,30 @@ function App() {
   const [favouriteList, setFavouriteList] = useState<IFavouriteList[]>([]);
   console.log({selectedUserID})
   console.log({favouriteList})
+
+  
+
+  useEffect(() => {
+    const getFavourites = async () => {
+        try {
+
+            const apiBaseURL = process.env.REACT_APP_API_BASE;
+            const response = await fetch(apiBaseURL + `/favouriteBooks/${selectedUserID}`)      
+            const jsonData = await response.json();
+            console.log("retrieved favourite books for specific user", selectedUserID, jsonData, "in get favourites of favourites component")
+            setFavouriteList(jsonData)
+            console.log("http get request from /favouriteBooks/:id fetched: ", {jsonData})
+            
+        } catch (error) {
+            console.error(error.message)
+            
+        }
+    };
+
+    getFavourites();
+
+  }, [setFavouriteList, selectedUserID]);
+
 
   if(currentPage === "Input") {
     return (
@@ -45,7 +71,12 @@ function App() {
     return (
       <div className="App">
         <Header currentPage={currentPage} setCurrentPage={setCurrentPage}/>
-        <Favourites selectedUserID={selectedUserID} setSelectedUserID={setSelectedUserID} favouriteList={favouriteList} setFavouriteList={setFavouriteList}/>
+        <Favourites 
+          selectedUserID={selectedUserID} 
+          setSelectedUserID={setSelectedUserID} 
+          favouriteList={favouriteList} 
+          setFavouriteList={setFavouriteList}
+          />
       </div>
     );
   }
