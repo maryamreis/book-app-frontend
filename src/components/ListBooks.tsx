@@ -1,5 +1,6 @@
 import { SimpleGrid } from "@chakra-ui/react";
 import React, {useEffect} from "react";
+import { IFavouriteList } from "../App";
 import {IBookList} from "../Types"
 import filterBooks from "../utils/filterBooks";
 import ShowBook from "./ShowBook";
@@ -8,7 +9,9 @@ interface IListBooks {
     searchTerm: string
     bookList: IBookList[]
     setBookList: React.Dispatch<React.SetStateAction<IBookList[]>>
-    selectedUserID: number
+    selectedUserID: number,
+    favouriteList: IFavouriteList[],
+    setFavouriteList: React.Dispatch<React.SetStateAction<IFavouriteList[]>>
 }
 
 
@@ -43,7 +46,10 @@ function ListBooks(props: IListBooks): JSX.Element {
                 name={book.name}
                 author={book.author}
                 genre={book.genre}
-                selectedUserID={props.selectedUserID}/>
+                selectedUserID={props.selectedUserID}
+                favouriteList={props.favouriteList} 
+                setFavouriteList={props.setFavouriteList}
+                />
             ))}
 
         </SimpleGrid>

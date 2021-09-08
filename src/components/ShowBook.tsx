@@ -1,11 +1,14 @@
 import { Box, Button, Heading, Stack, Text } from "@chakra-ui/react";
+import { IBookList, IFavouriteList } from "../App";
 
 export interface IShowBook {
     id: number,
     name: string,
     author: string,
     genre: string
-    selectedUserID: number
+    selectedUserID: number,
+    favouriteList: IFavouriteList[],
+    setFavouriteList: React.Dispatch<React.SetStateAction<IFavouriteList[]>>
 };
 
 export interface IBookObject {
@@ -21,11 +24,23 @@ export interface IBookObjectWithoutFavourite {
 
 
 function ShowBook(props: IShowBook): JSX.Element {
+
+    //useeffect to fetch and have usestate of fav list
     
     function containsBookInFavourites(book: IBookObjectWithoutFavourite, list: IBookObject[]) {
         console.log("containsBookInFavourites function:", "book:", book, "list:",list)
         for (let i = 0; i < list.length; i++) {
             if (list[i].bookid === book.bookid && list[i].userid === book.userid) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    function containsBookInFavouritesOfFavouritesList(book: IBookObjectWithoutFavourite, list: IFavouriteList[]) {
+        console.log("containsBookInFavouritesOfFavouritesList function:", "book:", book, "list:",list)
+        for (let i = 0; i < list.length; i++) {
+            if (list[i].id === book.bookid && list[i].userid === book.userid) {
                 return true;
             }
         }
@@ -92,8 +107,33 @@ function ShowBook(props: IShowBook): JSX.Element {
                 console.error(error.message);            
             }
         }
-        
     };
+
+
+    function checkIfInFavourites(){
+        console.log(props.selectedUserID, props.id);
+        const userid = props.selectedUserID;
+        const bookid = props.id;
+        const body = {userid, bookid};
+
+        // const apiBaseURL = process.env.REACT_APP_API_BASE;
+        // const response = await fetch(apiBaseURL + `/favourites`);
+        // const favouriteJSONList = await response.json();
+        // console.log({favouriteJSONList})
+
+        // console.log("containsBookinfavourites returns:",containsBookInFavourites(body, favouriteJSONList))
+        
+        if (containsBookInFavouritesOfFavouritesList(body, props.favouriteList) === true){
+            return true
+        }
+        else {
+            return false
+        }
+
+    }
+    //const checkIfInFavourites = async() => {
+        
+    //};
 
     return(
         <Box bg="cyan.50" borderWidth="2px" borderColor="cyan.500" boxShadow="lg" rounded="md" maxWidth="317px">
@@ -114,7 +154,8 @@ function ShowBook(props: IShowBook): JSX.Element {
                     rounded={'full'}
                     // mt="20px"
                     // mb="20px"
-                    bg={'cyan.400'}
+                    //bg={'cyan.400'}
+                    bg={checkIfInFavourites()===true ? 'pink.500' : 'cyan.500'}
                     color={'white'}
                     _hover={{
                     bg: 'blue.500',

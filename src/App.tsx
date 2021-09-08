@@ -14,13 +14,23 @@ export interface IBookList {
   genre: string,
 };
 
+export interface IFavouriteList {
+  id: number,
+  name: string,
+  author: string,
+  genre: string,
+  userid: number
+}
+
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("")
   const [bookList, setBookList] = useState<IBookList[]>([]);
   const [currentPage, setCurrentPage] = useState('Home');
   const [selectedUserID, setSelectedUserID] = useState(1);
+  const [favouriteList, setFavouriteList] = useState<IFavouriteList[]>([]);
   console.log({selectedUserID})
+  console.log({favouriteList})
 
   if(currentPage === "Input") {
     return (
@@ -35,7 +45,7 @@ function App() {
     return (
       <div className="App">
         <Header currentPage={currentPage} setCurrentPage={setCurrentPage}/>
-        <Favourites selectedUserID={selectedUserID} setSelectedUserID={setSelectedUserID}/>
+        <Favourites selectedUserID={selectedUserID} setSelectedUserID={setSelectedUserID} favouriteList={favouriteList} setFavouriteList={setFavouriteList}/>
       </div>
     );
   }
@@ -50,6 +60,8 @@ function App() {
           bookList={bookList} 
           setBookList={setBookList} 
           selectedUserID={selectedUserID}
+          favouriteList={favouriteList} 
+          setFavouriteList={setFavouriteList}
       />
       </div>
     );

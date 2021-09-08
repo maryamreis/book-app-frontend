@@ -1,6 +1,6 @@
 import { Box, Select, SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { IBookList } from "../App";
+import { IBookList, IFavouriteList } from "../App";
 import ShowBook from "./ShowBook";
 
 export interface IUserList {
@@ -9,14 +9,15 @@ export interface IUserList {
     lastname: string
 };
 
-export interface IUserID {
+export interface IUserIDAndFavourites {
     selectedUserID: number,
     setSelectedUserID: React.Dispatch<React.SetStateAction<number>>
+    favouriteList: IFavouriteList[],
+    setFavouriteList: React.Dispatch<React.SetStateAction<IFavouriteList[]>>
 };
 
 
-function ListFavourites(props:IUserID): JSX.Element{
-    const [favouriteList, setFavouriteList] = useState<IBookList[]>([]);
+function ListFavourites(props:IUserIDAndFavourites): JSX.Element{
     const [userList, setUserList] = useState<IUserList[]>([]);
 
     console.log({userList});
@@ -52,7 +53,7 @@ function ListFavourites(props:IUserID): JSX.Element{
                 const response = await fetch(apiBaseURL + `/favouriteBooks/${props.selectedUserID}`)      
                 const jsonData = await response.json();
                 console.log("retrieved favourite books for specific user", props.selectedUserID, jsonData, "in get favourites of favourites component")
-                setFavouriteList(jsonData)
+                props.setFavouriteList(jsonData)
                 
             } catch (error) {
                 console.error(error.message)
@@ -62,7 +63,7 @@ function ListFavourites(props:IUserID): JSX.Element{
 
         getFavourites();
 
-    }, [setFavouriteList, props.selectedUserID]);
+    }, [props.setFavouriteList, props.selectedUserID]);
     
 
     
@@ -72,7 +73,6 @@ function ListFavourites(props:IUserID): JSX.Element{
             <Select w="40%"
                 my="32px"
                 ml="32px"
-                placeholder="Select user..."
                 onChange={(event) => {
                     props.setSelectedUserID(parseInt(event.target.value));
                 }}
@@ -87,14 +87,17 @@ function ListFavourites(props:IUserID): JSX.Element{
 
             <SimpleGrid minChildWidth="20%" spacing="10" marginX="5" ml="32px" mr="32px">
                 {/* {filterBooks(props.bookList, props.searchTerm).map((book) => ( */}
-                {favouriteList.map((book) => (
+                {props.favouriteList.map((book) => (
                     <ShowBook 
                     key={book.id}
                     id={book.id}
                     name={book.name}
                     author={book.author}
                     genre={book.genre}
-                    selectedUserID={props.selectedUserID}/>
+                    selectedUserID={props.selectedUserID}
+                    favouriteList={props.favouriteList} 
+                    setFavouriteList={props.setFavouriteList}
+                    />
                 ))}
             </SimpleGrid>
 
