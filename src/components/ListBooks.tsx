@@ -20,6 +20,7 @@ function ListBooks(props: IListBooks): JSX.Element {
     
     useEffect(() => {
         const getBooks = async () => {
+            console.log("going to do a http get request from /books")
             try {
                 const apiBaseURL = process.env.REACT_APP_API_BASE;
                 
@@ -28,6 +29,7 @@ function ListBooks(props: IListBooks): JSX.Element {
                 const jsonData = await response.json();
     
                 setBookList(jsonData)
+                console.log("fetched data from http get request from /books: ", {jsonData})
                 
             } catch (error) {
                 console.error(error.message)

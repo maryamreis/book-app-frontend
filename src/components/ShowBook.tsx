@@ -1,5 +1,5 @@
 import { Box, Button, Heading, Stack, Text } from "@chakra-ui/react";
-import { IBookList, IFavouriteList } from "../App";
+import { IFavouriteList } from "../App";
 
 export interface IShowBook {
     id: number,

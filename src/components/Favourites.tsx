@@ -1,6 +1,6 @@
 import { Box, Select, SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { IBookList, IFavouriteList } from "../App";
+import { IFavouriteList } from "../App";
 import ShowBook from "./ShowBook";
 
 export interface IUserList {
@@ -19,11 +19,13 @@ export interface IUserIDAndFavourites {
 
 function ListFavourites(props:IUserIDAndFavourites): JSX.Element{
     const [userList, setUserList] = useState<IUserList[]>([]);
+    //const [selectedUserName, setSelectedUserName] = useState("")
 
     console.log({userList});
 
     useEffect(() => {
         const getUserList = async () => {
+            console.log("UseEffect triggered http get request from /users")
         
             try {
                 const apiBaseURL = process.env.REACT_APP_API_BASE;
@@ -33,6 +35,7 @@ function ListFavourites(props:IUserIDAndFavourites): JSX.Element{
                 const jsonData = await response.json();
         
                 setUserList(jsonData)
+                console.log("http get request from /users fetched: ", {userList})
     
             } catch (error) {
                 console.log(error.message) 
@@ -54,6 +57,7 @@ function ListFavourites(props:IUserIDAndFavourites): JSX.Element{
                 const jsonData = await response.json();
                 console.log("retrieved favourite books for specific user", props.selectedUserID, jsonData, "in get favourites of favourites component")
                 props.setFavouriteList(jsonData)
+                console.log("http get request from /favouriteBooks/:id fetched: ", {jsonData})
                 
             } catch (error) {
                 console.error(error.message)
@@ -73,8 +77,9 @@ function ListFavourites(props:IUserIDAndFavourites): JSX.Element{
             <Select w="40%"
                 my="32px"
                 ml="32px"
+                //placeholder={selectedUserName}
                 onChange={(event) => {
-                    props.setSelectedUserID(parseInt(event.target.value));
+                    props.setSelectedUserID(parseInt(event.target.value))
                 }}
             >
                 {userList.map((user) => (
