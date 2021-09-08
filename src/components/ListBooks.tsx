@@ -12,33 +12,21 @@ interface IListBooks {
     selectedUserID: number,
     favouriteList: IFavouriteList[],
     setFavouriteList: React.Dispatch<React.SetStateAction<IFavouriteList[]>>,
-    getFavourites: () => Promise<void>
+    getFavourites: () => Promise<void>,
+    getBooks:() => Promise<void>
 };
 
 
 function ListBooks(props: IListBooks): JSX.Element {
-    const setBookList = props.setBookList
+    const getBooks = props.getBooks;
+
+    
     
     useEffect(() => {
-        const getBooks = async () => {
-            console.log("going to do a http get request from /books")
-            try {
-                const apiBaseURL = process.env.REACT_APP_API_BASE;
-                
-                const response = await fetch(apiBaseURL + "/books")      
-
-                const jsonData = await response.json();
-    
-                setBookList(jsonData)
-                console.log("fetched data from http get request from /books: ", {jsonData})
-                
-            } catch (error) {
-                console.error(error.message)
-            }
-        };
-
+        
         getBooks();
-    }, [setBookList, props.setFavouriteList]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
 
 
@@ -55,6 +43,7 @@ function ListBooks(props: IListBooks): JSX.Element {
                 favouriteList={props.favouriteList} 
                 setFavouriteList={props.setFavouriteList}
                 getFavourites={props.getFavourites}
+                getBooks={props.getBooks}
                 />
             ))}
 

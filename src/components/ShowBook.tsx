@@ -9,7 +9,8 @@ export interface IShowBook {
     selectedUserID: number,
     favouriteList: IFavouriteList[],
     setFavouriteList: React.Dispatch<React.SetStateAction<IFavouriteList[]>>,
-    getFavourites: () => Promise<void>
+    getFavourites: () => Promise<void>,
+    getBooks:() => Promise<void>
 
 };
 
@@ -56,6 +57,7 @@ function ShowBook(props: IShowBook): JSX.Element {
                 method: "DELETE",
                 headers: {"Content-Type": "application/json"}
             });
+            props.getBooks();
         
         } catch (error) {
             console.error(error.message)            
@@ -177,12 +179,6 @@ function ShowBook(props: IShowBook): JSX.Element {
                     // mb="20px"
                     bg={'cyan.400'}
                     color={'white'}
-                    _hover={{
-                    bg: 'blue.500',
-                    }}
-                    _focus={{
-                    bg: 'cyan.500',
-                    }}
                     onClick={deleteBook}
                     >
                     delete

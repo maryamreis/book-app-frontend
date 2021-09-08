@@ -14,7 +14,8 @@ export interface IUserIDAndFavourites {
     setSelectedUserID: React.Dispatch<React.SetStateAction<number>>
     favouriteList: IFavouriteList[],
     setFavouriteList: React.Dispatch<React.SetStateAction<IFavouriteList[]>>,
-    getFavourites: () => Promise<void>
+    getFavourites: () => Promise<void>,
+    getBooks: () => Promise<void>
 };
 
 
@@ -78,6 +79,7 @@ function ListFavourites(props:IUserIDAndFavourites): JSX.Element{
                     favouriteList={props.favouriteList} 
                     setFavouriteList={props.setFavouriteList}
                     getFavourites={props.getFavourites}
+                    getBooks={props.getBooks}
                     />
                 ))}
             </SimpleGrid>

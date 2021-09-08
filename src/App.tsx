@@ -49,13 +49,30 @@ function App() {
         
     }
 };
+
+const getBooks = async () => {
+  console.log("going to do a http get request from /books")
+  try {
+      const apiBaseURL = process.env.REACT_APP_API_BASE;
+      
+      const response = await fetch(apiBaseURL + "/books")      
+
+      const jsonData = await response.json();
+
+      setBookList(jsonData)
+      console.log("fetched data from http get request from /books: ", {jsonData})
+      
+  } catch (error) {
+      console.error(error.message)
+  }
+};
   
 
   useEffect(() => {
 
 
     getFavourites();
-   
+
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setFavouriteList, selectedUserID]);
 
@@ -79,6 +96,7 @@ function App() {
           favouriteList={favouriteList} 
           setFavouriteList={setFavouriteList}
           getFavourites={getFavourites}
+          getBooks={getBooks}
           />
       </div>
     );
@@ -97,6 +115,7 @@ function App() {
           favouriteList={favouriteList} 
           setFavouriteList={setFavouriteList}
           getFavourites={getFavourites}
+          getBooks={getBooks}
       />
       </div>
     );
