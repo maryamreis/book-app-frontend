@@ -20,7 +20,7 @@ function InputBook(): JSX.Element {
                 body: JSON.stringify(body)
             });
 
-            console.log(response);
+            console.log("post method:", response);
             
         } catch (error) {
             console.log(error.message)
